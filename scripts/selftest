@@ -404,12 +404,47 @@ put specs/active/0030-sc.md '# Spec 0030' '- Status: Approved' '- Self-critique:
 doctor;            hasnt "self-critique" "self-critique done → no line"
 put specs/active/0030-sc.md '# Spec 0030' '- Status: Approved'
 doctor;            hasnt "self-critique" "no Self-critique field (older spec) → no line"
+# Design at a fixed version (ANEW-0013): a UI spec carries `- Design: <link> · version <label>`.
+# Draft → WARN (never fails); Approved / In progress → gate; no User experience heading = UI.
+D='UI spec without a design at a fixed version: specs/active/0032-ui.md'
+reset; put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '' '## User experience' 'Flow: list → detail.'
+doctor;            has "WARN  $D" "a UI Draft without Design → WARN"
+doctor --strict;   exits 0 "… a Draft never fails, even under --strict"; has "WARN  $D" "… and still warns there"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '' '## Intent' 'x'
+doctor;            has "WARN  $D" "no User experience heading counts as UI (fail-closed)"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '## User experience' 'Flow.' '- Design: https://claude.ai/artifact/abc'
+doctor;            has "WARN  $D" "a link without a version label is malformed"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '## User experience' 'Flow.' '- Design: version v1'
+doctor;            has "WARN  $D" "a version without a link is malformed"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'Flow: list → detail.'
+doctor;            exits 0 "a UI spec past approval without Design → WARN locally"; has "WARN  $D" "… with the line"
+doctor --strict;   exits 1 "… and FAIL under --strict (Approved)"; has "FAIL  $D" "… as a gate"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: In progress' '## Intent' 'x'
+doctor --strict;   exits 1 "In progress without a heading under --strict"; has "FAIL  $D" "… is a gate too"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'Flow.' '- Design: https://claude.ai/artifact/abc · version v2'
+doctor --strict;   hasnt "UI spec without a design" "link · version label → no line"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' '- Design: https://design.example/f/1 | version 2026-11-12'
+doctor --strict;   hasnt "UI spec without a design" "an ASCII | separator is accepted"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' '<!-- template help' 'spans lines -->' '' 'none — no user interface'
+doctor --strict;   hasnt "UI spec without a design" "none — no user interface (after a comment) → not a UI spec"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'None - no user interface.' '## Acceptance criteria'
+doctor --strict;   hasnt "UI spec without a design" "an ASCII dash and any case are accepted"
+M='UI spec without a design at a fixed version: specs/active/0033-mini.md'
+reset; put specs/active/0033-mini.md '# Spec 0033 (mini)' '- Status: Approved' '- Source: WI-2' '- Design: none — no user interface' '## Preserved behavior'
+doctor --strict;   hasnt "UI spec without a design" "mini-spec with Design: none → no line"
+put specs/active/0033-mini.md '# Spec 0033 (mini)' '- Status: Approved' '- Source: WI-2' '- Design: https://claude.ai/artifact/m · version v1' '## Preserved behavior'
+doctor --strict;   hasnt "UI spec without a design" "mini-spec with a valid Design → no line"
+put specs/active/0033-mini.md '# Spec 0033 (mini)' '- Status: Approved' '- Source: WI-2' '- Design: <!-- UI change only -->' '## Preserved behavior'
+doctor --strict;   exits 1 "mini-spec with an empty Design under --strict"; has "FAIL  $M" "… is a gate"
+reset; put specs/done/0034-old.md '# Spec 0034' '- Status: Shipped' '## User experience' 'Flow.'
+doctor --strict;   hasnt "UI spec without a design" "a shipped spec is not judged for its design"
 
 # Criterion ↔ test map: every backticked name in an active plan must be held by a file outside
 # specs/ (path, basename or text); WARN only; shipped plans are not scanned.
 reset
 rm -f "$W/scripts/selftest"   # its own text holds every name below
-put specs/active/0040-map.md '# Spec 0040' '- Status: In progress' 'mentions test_only_in_spec'
+put specs/active/0040-map.md '# Spec 0040' '- Status: In progress' 'mentions test_only_in_spec' \
+  '## User experience' 'none — no user interface'
 put specs/plans/0040-plan.md '# Plan 0040' '- Approved by / on: Ada, 2026-11-02' '' '## Criterion ↔ test map' \
   '| Acceptance criterion | Proven by | Profile |' '|---|---|---|' \
   '| AC-1 | `test_present_one`; `tests/unit/sample_test.txt::test_in_file`; `sample_test.txt` | fast |' \
