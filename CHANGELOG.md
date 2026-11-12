@@ -34,7 +34,7 @@ the core is Markdown plus a few POSIX scripts, so upgrades are file edits, not m
    ADRs are never renumbered.
 6. Write the new version into `.anew-version`.
 
-## v1.25.0 — A design is drawn and approved with the spec
+## v1.25 — A design is drawn and approved with the spec
 
 Teams building internal software rarely have a designer. A UI spec was approved without anyone
 seeing its screens, and the first look came at VERIFY. Now ANALYZE draws the design, and the
@@ -84,7 +84,7 @@ No invariant rule changes. A current release, not part of the `1.24.x` LTS line.
   artifact as the default; label `v<n>`; private, sample data only. Re-run
   `./scripts/init claude-code` to refresh `.claude/`.
 - `docs/decisions/anew/ANEW-0013-design-approved-with-spec.md` (new); `ANEW-0008`: a `Revised:` line.
-- Full diff: `/compare/v1.24.1...v1.25.0`.
+- Full diff: `/compare/v1.24.1...v1.25`.
 
 ## v1.24.1 — v1.24 is the first LTS line
 

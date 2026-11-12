@@ -70,9 +70,9 @@ work, not a screen.)
   approvers before the gate.
 - `doctor` cannot verify that a version exists or that the drawing matches the criteria. That
   stays with the human at the gate and with VERIFY (as ANEW-0008 states).
-- Release: this adds a new rule, so it ships on `main` as v1.25.0. It is not backported to
+- Release: this adds a new rule, so it ships on `main` as v1.25 (the repo's version naming; A-1). It is not backported to
   `lts/1.24`, which takes fixes only.
-- Upgrade (G-2): the rule is not relaxed for work already in flight. The v1.25.0 CHANGELOG entry
+- Upgrade (G-2): the rule is not relaxed for work already in flight. The v1.25 CHANGELOG entry
   carries an upgrade note: finish UI specs that are `In progress` before upgrading, or add their
   design (R-08). Otherwise `doctor --strict` turns CI red.
 - Permalinks (G-1): PLAN checks whether a Claude Design artifact offers a stable link to one
@@ -107,8 +107,8 @@ work, not a screen.)
   `Revised:` line pointing to it. `docs/testing.md` compares UI evidence with the spec's design
   version (Req. 8). `docs/commands.md` describes the new gate wording, and doctor's command
   reference check is ok (Req. 9).
-- [ ] AC-9 — `CHANGELOG.md` has a v1.25.0 entry with the upgrade note (G-2), and `.anew-version`
-  reads v1.25.0.
+- [ ] AC-9 — `CHANGELOG.md` has a v1.25 entry with the upgrade note (G-2), and `.anew-version`
+  reads v1.25.
   `./scripts/doctor --strict` exits 0 and `./scripts/selftest` is green.
 
 ## Definition of Done
