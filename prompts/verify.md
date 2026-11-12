@@ -13,7 +13,7 @@ Evidence is one of:
 - a reproducible observation — command + output;
 - for UI criteria, a screenshot; for change requests, before/after screenshots that cover the
   preserved behavior too. Each is checked against the spec's User experience: every listed
-  state and the design link, not only the happy path. You capture them yourself
+  state and the design version the spec names, not only the happy path. You capture them yourself
   (docs/testing.md, Evidence for UI criteria): scripted and headless, outside the repo and
   check. List the gallery (state → path) for the SHIP gate; never ask the human to take them
   unless the state is out of your reach.

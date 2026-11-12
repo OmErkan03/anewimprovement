@@ -55,15 +55,26 @@ No invariant rule changes. A current release, not part of the `1.24.x` LTS line.
 
 ### Upgrading
 
-**Before you upgrade:** a UI spec that is `In progress` without a design turns
-`doctor --strict` (CI) red. Finish it first, or add its design through R-08.
+**Before you upgrade:** every spec in `specs/active/` that is `Approved` or `In progress` turns
+`doctor --strict` (CI) red unless it carries one of:
+- `none — no user interface` as the first line of `## User experience` (full spec);
+- `- Design: none — no user interface` (mini-spec; or a full spec whose User experience holds
+  nothing else);
+- `- Design: <link> · version <label>`.
+
+That includes non-UI mini-specs whose `Design:` was left empty (it was optional) and older specs
+without a `## User experience` heading. To list them, copy the new `scripts/doctor` first and run
+it without `--strict`: each `WARN  UI spec without a design at a fixed version: <file>` line is a
+spec to fix. Add the marker to a non-UI spec (a fact, not a behavior change); give a UI spec its
+design through R-08, or finish it before you upgrade.
 
 - `scripts/doctor` — behavior list:
   - for each `specs/active/[0-9]*.md`: a mini-spec (`## Preserved behavior`) whose `- Design:`
     value starts with `none — no user interface` (en dash or `-` also accepted, any case) is not
     UI; a full spec is not UI when the first text line of `## User experience` (HTML comments,
     also multi-line, and a `- Design:` line skipped) starts with it; a spec without that heading
-    is UI;
+    is UI; a full spec whose section holds no text other than `- Design: none — no user
+    interface` is not UI either; the awk part matches blanks as `[ 	]` (CRLF-safe);
   - a UI spec passes when its first `- Design:` line (comments stripped) is
     `http(s)://… [· or |] version <label>`;
   - otherwise `UI spec without a design at a fixed version: specs/active/<file> (status: …)`:

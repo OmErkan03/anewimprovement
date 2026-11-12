@@ -138,7 +138,7 @@ Not every rule is held the same way, and not every tool can hold it the same way
 | "Done" = `scripts/check` green | Validated (CI) | Validated (CI) | Validated (CI) | Validated (CI) | Validated (CI) |
 | Evidence is referenced, not stored (no `evidence/`, no repo clone inside the repo) | Validated (doctor warns, every mode) | Validated (doctor warns, every mode) | Validated (doctor warns, every mode) | Validated (doctor warns, every mode) | Validated (doctor warns, every mode) |
 | `scripts/check` leaves nothing running, and no data for the next run | Documented (the residue test, `scripts/residue`, runs at bootstrap and whenever check.conf changes — not in CI; it does not measure data) | Documented (same) | Documented (same) | Documented (same) | Documented (same) |
-| UI specs define flow, states and the design link | Documented | Documented | Documented | Documented | Documented |
+| UI specs define flow, states and a design at a fixed version, approved with the spec | Validated (doctor: the `- Design:` field's shape; FAIL under --strict past approval) | Validated (same) | Validated (same) | Validated (same) | Validated (same) |
 | Evidence cites the full profile, not `--fast` | Validated (doctor warns: shipped specs, and the PR description in CI) | Validated (same) | Validated (same) | Validated (same) | Validated (same) |
 
 Segment commands also refuse out-of-order work (entry checks) — that is the agent following a
