@@ -1,6 +1,6 @@
 # Spec 0006 — A design is drawn and approved with the spec
 
-- Status: Approved
+- Status: In progress
 - Mode: lite (ANEW's own development)
 - Plan: `.anew-dev/plans/0006-plan.md`
 - Self-critique: done (G-1, G-2, G-3 folded in below)
