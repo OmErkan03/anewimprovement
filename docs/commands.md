@@ -159,7 +159,8 @@ Mode is the `Mode:` line in `AGENTS.md`, set at bootstrap (`workflows/README.md`
   Rule: **Segments always stop; /new-feature flows only as far as the mode allows.**
 - **When to use it:** lite — every new feature starts here.
 - **Reads / writes:** `AGENTS.md`, `workflows/segments.md`; then whatever each segment reads and writes.
-- **Stops at:** spec approval · plan approval · triage · ship, continuing only on explicit approval.
+- **Stops at:** spec approval (with its design version for UI work) · plan approval · triage · ship,
+  continuing only on explicit approval.
   A matching spec in `specs/active/` is resumed from its next gate, never twinned.
   One-pass review: outside a sensitive area and with no criterion that needs the code broken on
   purpose, a clean `/review` carries `/verify` in the same independent session; the gates stay
@@ -182,7 +183,10 @@ gate, handoff ending in `Next: <segment> — <who runs it>`, stop.
 - **Reads / writes:** `prompts/clarify.md`, `prompts/spec.md`, `specs/active/`, `specs/done/`,
   `specs/plans/` (for the next number); writes `specs/active/NNNN-<name>.md` and sets
   `Status: Approved`.
-- **Stops at:** spec approval — "no open questions remain" · `Next: PLAN — Developer`.
+- **Stops at:** spec approval — "no open questions remain" · `Next: PLAN — Developer`. UI work:
+  the Analyst draws the design of every screen an AC touches, links it at a fixed version
+  (`- Design: <link> · version <label>`), and you approve the spec together with that version in
+  one decision (ANEW-0013).
 - **Lite / Strict:** lite folds clarify into the draft and the approval is a quick yes/no — never
   skipped; strict clarifies first, then drafts. A sensitive area (`docs/domain.md`) clarifies
   first in lite too.
@@ -245,7 +249,8 @@ gate, handoff ending in `Next: <segment> — <who runs it>`, stop.
   (b) does an acceptance criterion change or appear? → CHANGE, else TRIVIAL;
   (c) does it touch shared code? → CHANGE. Three lanes: BUG → `/fix-bug` · TRIVIAL → one narrow
   commit per the `docs/git.md` "Trivial changes" policy · CHANGE → mini-spec from
-  `specs/TEMPLATE-mini.md` (`Source:` mandatory, changed + preserved criteria).
+  `specs/TEMPLATE-mini.md` (`Source:` mandatory, changed + preserved criteria, `Design:` none or
+  the touched screens at a fixed version).
 - **When to use it:** any request to change existing behavior, however small it sounds.
 - **Reads / writes:** `workflows/change-request.md`, `docs/git.md`; writes a mini-spec in
   `specs/active/` (CHANGE) or one commit (TRIVIAL).
@@ -317,7 +322,7 @@ lives in [`prompts/recovery/README.md`](../prompts/recovery/README.md).
 | `scripts/selftest` | ANEW's scripts behave as documented | Pass / fail count | Same | Same |
 | `/bootstrap` | Adapt ANEW to the project | Language · interview · report | Sets the mode | Sets the mode |
 | `/new-feature` | Chain the segments | Each of the four gates | Chains | Refuses |
-| `/analyze` | Intent → approved spec | Spec approval | Clarify folded into draft | Clarify first |
+| `/analyze` | Intent → approved spec (+ design for UI) | Spec approval | Clarify folded into draft | Clarify first |
 | `/plan` | Approved spec → approved plan | Plan approval | Same | Own session |
 | `/build` | Approved plan → green check | Handoff with check output | Same | Own session |
 | `/review` | Independent, read-only review | Findings → triage | Same | Same |
