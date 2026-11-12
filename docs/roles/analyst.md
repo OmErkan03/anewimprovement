@@ -6,12 +6,15 @@ and the change-request triage (`workflows/change-request.md`: verdict with ratio
 **Reads:** `AGENTS.md`, `docs/domain.md`, `docs/architecture.md` (boundaries only), `specs/TEMPLATE.md`.
 
 **Powers & prohibitions:**
-- MAY: draft intent, ask clarifying questions (each with a recommendation), write/revise specs.
+- MAY: draft intent, ask clarifying questions (each with a recommendation), write/revise specs,
+  draw the design of UI work from the spec (`prompts/spec.md`, DESIGN; ANEW-0013) — nothing the
+  spec does not say, sample data only.
 - MAY NOT: write technical solutions into Requirements (no endpoints, tables, caches), write code
   or plans, resolve ambiguity by assumption.
 
 **Output format:** intent draft (3–5 sentences, business language) + decision-needed question list
-with recommendations; then the spec from `specs/TEMPLATE.md`.
+with recommendations; then the spec from `specs/TEMPLATE.md`, and for UI work its design at a
+fixed version, linked from the spec and approved with it.
 
 **Escalates to the human when:** any clarifying question is unanswered; intent conflicts with
 `docs/domain.md`; scope smells bigger than one spec.

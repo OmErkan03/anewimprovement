@@ -347,6 +347,7 @@ ux_first() {
                  else   { i = index(line, "<!--"); if (!i) { out = out line; line = "" }
                           else { out = out substr(line, 1, i - 1); line = substr(line, i + 4); c = 1 } }
                }
+               if (out ~ /^- Design:/) next
                if (out ~ /[^[:space:]]/) { print out; exit } }' "$1"
 }
 for s in "$ROOT/specs/active/"[0-9]*.md; do

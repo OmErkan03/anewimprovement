@@ -429,6 +429,8 @@ put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experien
 doctor --strict;   hasnt "UI spec without a design" "none — no user interface (after a comment) → not a UI spec"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'None - no user interface.' '## Acceptance criteria'
 doctor --strict;   hasnt "UI spec without a design" "an ASCII dash and any case are accepted"
+put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' '- Design:' 'none — no user interface'
+doctor --strict;   hasnt "UI spec without a design" "an empty template Design line above none — no user interface is not the section text"
 M='UI spec without a design at a fixed version: specs/active/0033-mini.md'
 reset; put specs/active/0033-mini.md '# Spec 0033 (mini)' '- Status: Approved' '- Source: WI-2' '- Design: none — no user interface' '## Preserved behavior'
 doctor --strict;   hasnt "UI spec without a design" "mini-spec with Design: none → no line"
