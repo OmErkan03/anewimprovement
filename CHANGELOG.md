@@ -74,7 +74,7 @@ design through R-08, or finish it before you upgrade.
     UI; a full spec is not UI when the first text line of `## User experience` (HTML comments,
     also multi-line, and a `- Design:` line skipped) starts with it; a spec without that heading
     is UI; a full spec whose section holds no text other than `- Design: none — no user
-    interface` is not UI either; the awk part matches blanks as `[ 	]` (CRLF-safe);
+    interface` is not UI either; the awk part matches blanks as `[ \t\r]` (CRLF-safe);
   - a UI spec passes when its first `- Design:` line (comments stripped) is
     `http(s)://… [· or |] version <label>`;
   - otherwise `UI spec without a design at a fixed version: specs/active/<file> (status: …)`:
