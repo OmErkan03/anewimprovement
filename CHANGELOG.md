@@ -34,6 +34,58 @@ the core is Markdown plus a few POSIX scripts, so upgrades are file edits, not m
    ADRs are never renumbered.
 6. Write the new version into `.anew-version`.
 
+## v1.25.0 — A design is drawn and approved with the spec
+
+Teams building internal software rarely have a designer. A UI spec was approved without anyone
+seeing its screens, and the first look came at VERIFY. Now ANALYZE draws the design, and the
+human approves the spec together with a fixed version of it (ANEW-0013, revising ANEW-0008).
+No invariant rule changes. A current release, not part of the `1.24.x` LTS line.
+
+- **A UI spec carries `- Design: <link> · version <label>`.** The design covers every screen an
+  acceptance criterion touches, and every listed state that changes how a screen looks. The
+  Analyst draws it from the spec: nothing the spec does not say, sample data only. An existing
+  design at a fixed version is linked instead.
+- **One approval.** The spec gate is one decision: the spec together with its design version. A
+  design change after approval is a spec change (R-08). VERIFY compares against that version.
+- **Mini-specs too.** `Design:` is required: `none — no user interface`, or the touched screens at
+  a fixed version.
+- **doctor checks the field.** WARN on a Draft; a gate (FAIL under `--strict`) on an Approved or
+  In progress spec. A spec without a User experience heading counts as UI.
+- **Claude Code:** the default drawing tool is a Claude Design artifact. The core names no tool.
+
+### Upgrading
+
+**Before you upgrade:** a UI spec that is `In progress` without a design turns
+`doctor --strict` (CI) red. Finish it first, or add its design through R-08.
+
+- `scripts/doctor` — behavior list:
+  - for each `specs/active/[0-9]*.md`: a mini-spec (`## Preserved behavior`) whose `- Design:`
+    value starts with `none — no user interface` (en dash or `-` also accepted, any case) is not
+    UI; a full spec is not UI when the first text line of `## User experience` (HTML comments,
+    also multi-line, and a `- Design:` line skipped) starts with it; a spec without that heading
+    is UI;
+  - a UI spec passes when its first `- Design:` line (comments stripped) is
+    `http(s)://… [· or |] version <label>`;
+  - otherwise `UI spec without a design at a fixed version: specs/active/<file> (status: …)`:
+    WARN on Draft or any other status, `gate` (WARN; FAIL under `--strict`) on Approved /
+    In progress; `specs/done/` is not judged; exit codes otherwise unchanged.
+
+  Selftest: new "Design at a fixed version" scenarios; the criterion-map fixture gains a "none"
+  User experience section. Copy `scripts/selftest` with it.
+- `specs/TEMPLATE.md`, `specs/TEMPLATE-mini.md`: intent: the `- Design:` line, its form and scope;
+  required in mini-specs.
+- `prompts/spec.md`, `prompts/clarify.md`, `docs/roles/analyst.md`: intent: the Analyst draws the
+  design from the spec (DESIGN), replacing "never invent visuals".
+- `workflows/segments.md`, `workflows/feature-development.md`, `workflows/change-request.md`,
+  `docs/commands.md`: intent: the spec gate names the design version, in one decision.
+- `prompts/recovery/spec-change.md`: intent: a design change after approval is R-08.
+- `docs/testing.md`: intent: UI evidence is compared with the spec's design version.
+- `adapters/claude-code/` (`analyze`, `new-feature`, `change`, `README.md`): intent: Claude Design
+  artifact as the default; label `v<n>`; private, sample data only. Re-run
+  `./scripts/init claude-code` to refresh `.claude/`.
+- `docs/decisions/anew/ANEW-0013-design-approved-with-spec.md` (new); `ANEW-0008`: a `Revised:` line.
+- Full diff: `/compare/v1.24.1...v1.25.0`.
+
 ## v1.24.1 — v1.24 is the first LTS line
 
 Organizations adopting ANEW need one version to train on and build on while new work continues.
