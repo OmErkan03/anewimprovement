@@ -4,6 +4,14 @@ ANEW's own development records: the specs and plans that change the template its
 They follow the same rules as a project's `specs/` (`specs/TEMPLATE.md`, `specs/plans/TEMPLATE.md`,
 AGENTS.md invariant rules) but live here so the template's `specs/` stays empty for its users.
 
+## This fork
+
+This repo is the company's ANEW fork. Team members create their internal-software repos from it.
+- **Do not bootstrap this repo.** AGENTS.md ("NOT CONFIGURED") and the `docs/` templates are the
+  product; bootstrapping would overwrite them. Bootstrap runs in the repos created from this one.
+- Template changes go through `.anew-dev/` specs and plans, as below. Records are written in English.
+- Verify with `./scripts/doctor --strict` and `./scripts/selftest` (the same checks as CI).
+
 - `specs/NNNN-<name>.md` — one per piece of work; numbering is shared with `plans/`.
 - `plans/NNNN-plan.md` — the approved plan, `Approved by / on` is the gate record.
 - Shipped specs move to `done/` and are never edited again.
