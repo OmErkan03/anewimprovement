@@ -412,14 +412,17 @@ doctor;            has "WARN  $D" "a UI Draft without Design → WARN"
 doctor --strict;   exits 0 "… a Draft never fails, even under --strict"; has "WARN  $D" "… and still warns there"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '' '## Intent' 'x'
 doctor;            has "WARN  $D" "no User experience heading counts as UI (fail-closed)"
+doctor --strict;   exits 0 "… a Draft without the heading never fails under --strict"; has "WARN  $D" "… and still warns there"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '## User experience' 'Flow.' '- Design: https://claude.ai/artifact/abc'
 doctor;            has "WARN  $D" "a link without a version label is malformed"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Draft' '## User experience' 'Flow.' '- Design: version v1'
-doctor;            has "WARN  $D" "a version without a link is malformed"
+doctor;            exits 0 "a version without a link is malformed"; has "WARN  $D" "… → WARN"
+doctor --strict;   exits 0 "… a malformed Draft never fails under --strict"; has "WARN  $D" "… and still warns there"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'Flow: list → detail.'
 doctor;            exits 0 "a UI spec past approval without Design → WARN locally"; has "WARN  $D" "… with the line"
 doctor --strict;   exits 1 "… and FAIL under --strict (Approved)"; has "FAIL  $D" "… as a gate"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: In progress' '## Intent' 'x'
+doctor;            exits 0 "In progress without Design → WARN locally"; has "WARN  $D" "… with the line"
 doctor --strict;   exits 1 "In progress without a heading under --strict"; has "FAIL  $D" "… is a gate too"
 put specs/active/0032-ui.md '# Spec 0032' '- Status: Approved' '## User experience' 'Flow.' '- Design: https://claude.ai/artifact/abc · version v2'
 doctor --strict;   hasnt "UI spec without a design" "link · version label → no line"

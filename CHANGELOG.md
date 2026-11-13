@@ -65,7 +65,7 @@ No invariant rule changes. A current release, not part of the `1.24.x` LTS line.
 That includes non-UI mini-specs whose `Design:` was left empty (it was optional) and older specs
 without a `## User experience` heading. To list them, copy the new `scripts/doctor` first and run
 it without `--strict`: each `WARN  UI spec without a design at a fixed version: <file>` line is a
-spec to fix. Add the marker to a non-UI spec (a fact, not a behavior change); a spec without the
+spec to fix. Add the marker to a non-UI spec (a fact, not a behavior change); a full spec without the
 heading first needs `## User experience` with `none — no user interface` under it, since
 `- Design: none` alone counts only under that heading. Give a UI spec its design through R-08,
 or finish it before you upgrade.
