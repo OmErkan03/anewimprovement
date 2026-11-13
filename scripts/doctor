@@ -334,8 +334,8 @@ done
 # --- design at a fixed version (ANEW-0013): a UI spec carries `- Design: <link> · version <label>`
 # (`|` or no separator also accepted). Not UI: the User experience section opens with
 # "none — no user interface" (mini-spec: its Design field says so). No User experience heading
-# counts as UI (fail-closed). A full spec whose section holds no other text than
-# "- Design: none — no user interface" is not UI either. Draft → WARN; Approved / In progress →
+# counts as UI (fail-closed). A full spec whose section holds no other text, and whose
+# `- Design:` field (first such line in the file) is "none — no user interface", is not UI either. Draft → WARN; Approved / In progress →
 # gate. Shape only: the link is never opened, and specs/done/ is not judged.
 # awk uses [ \t\r], never POSIX classes: old mawk (1.3.3) misreads [[:space:]]. ---
 design_none() { grep -qiE '^[[:space:]]*none[[:space:]]*(—|–|-)[[:space:]]*no user interface'; }
