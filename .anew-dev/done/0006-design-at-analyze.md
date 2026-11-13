@@ -1,6 +1,6 @@
 # Spec 0006 — A design is drawn and approved with the spec
 
-- Status: In progress
+- Status: Shipped
 - Mode: lite (ANEW's own development)
 - Plan: `.anew-dev/plans/0006-plan.md`
 - Self-critique: done (G-1, G-2, G-3 folded in below)
@@ -81,48 +81,48 @@ work, not a screen.)
 - Out of scope: B-1…B-7, any change to `check.yml`, and specs already shipped.
 
 ## Acceptance criteria
-- [ ] AC-1 — `specs/TEMPLATE.md` "User experience" defines the `Design: <link> · version <label>`
+- [x] AC-1 — `specs/TEMPLATE.md` "User experience" defines the `Design: <link> · version <label>`
   field and its scope (Req. 1). `specs/TEMPLATE-mini.md` `Design:` allows exactly that form or
   `none — no user interface` (Req. 6).
-- [ ] AC-2 — `prompts/spec.md`, `prompts/clarify.md` and `docs/roles/analyst.md` tell the Analyst
+- [x] AC-2 — `prompts/spec.md`, `prompts/clarify.md` and `docs/roles/analyst.md` tell the Analyst
   to draw the design from the analysis. The text covers every screen an AC touches and every state
   that changes its look, sample data only, nothing beyond the spec, and an external fixed-version
   design accepted instead (Req. 2). "Never invent visuals" is replaced by this rule.
-- [ ] AC-3 — The spec approval gate in `workflows/segments.md` (ANALYZE row),
+- [x] AC-3 — The spec approval gate in `workflows/segments.md` (ANALYZE row),
   `workflows/feature-development.md` step 2 and `workflows/change-request.md` MINI-SPEC asks one
   decision that names both the spec and the design version. `prompts/recovery/spec-change.md`
   (R-08) names a design change after approval (Req. 4, 5).
-- [ ] AC-4 — selftest: a Draft UI spec with no `Design:` field, or a malformed one, makes
+- [x] AC-4 — selftest: a Draft UI spec with no `Design:` field, or a malformed one, makes
   `doctor` WARN and exit 0, in both normal and `--strict` mode. The same holds for a Draft spec
   with no "User experience" heading (Req. 7, G-3).
-- [ ] AC-5 — selftest: the same spec at `Approved` or `In progress` makes `doctor` WARN with exit
+- [x] AC-5 — selftest: the same spec at `Approved` or `In progress` makes `doctor` WARN with exit
   0 in normal mode, and FAIL with exit 1 under `--strict` (Req. 7).
-- [ ] AC-6 — selftest: no Design warning for a spec whose User experience is
+- [x] AC-6 — selftest: no Design warning for a spec whose User experience is
   `none — no user interface`, a valid `Design:` line, a mini-spec with `Design: none — no user
   interface` or a valid link, or any spec in `specs/done/` (Req. 1, 6, 7).
-- [ ] AC-7 — `adapters/claude-code/` (the analyze and new-feature commands) names a Claude Design
+- [x] AC-7 — `adapters/claude-code/` (the analyze and new-feature commands) names a Claude Design
   artifact as the default and states the privacy constraint (Req. 3). `grep -rn "Claude Design"`
   finds no core file outside `adapters/` and `docs/decisions/`. `doctor` adapter parity is ok.
-- [ ] AC-8 — `docs/decisions/anew/ANEW-0013-*.md` exists and is Accepted. ANEW-0008 carries a
+- [x] AC-8 — `docs/decisions/anew/ANEW-0013-*.md` exists and is Accepted. ANEW-0008 carries a
   `Revised:` line pointing to it. `docs/testing.md` compares UI evidence with the spec's design
   version (Req. 8). `docs/commands.md` describes the new gate wording, and doctor's command
   reference check is ok (Req. 9).
-- [ ] AC-9 — `CHANGELOG.md` has a v1.25 entry with the upgrade note (G-2), and `.anew-version`
+- [x] AC-9 — `CHANGELOG.md` has a v1.25 entry with the upgrade note (G-2), and `.anew-version`
   reads v1.25.
   `./scripts/doctor --strict` exits 0 and `./scripts/selftest` is green.
 
 ## Definition of Done
-- [ ] Every acceptance criterion mapped to proof (test or reproducible observation)
-- [ ] `./scripts/doctor --strict` and `./scripts/selftest` green (this repo's check, `.anew-dev/README.md`)
-- [ ] Independent review done; real findings fixed, noise rejected with written rationale, deferred ones in `.anew-dev/backlog.md`
-- [ ] Docs / ADRs updated (ANEW-0013, ANEW-0008 revised)
-- [ ] Spec moved to `.anew-dev/done/` (it becomes immutable there)
+- [x] Every acceptance criterion mapped to proof (test or reproducible observation)
+- [x] `./scripts/doctor --strict` and `./scripts/selftest` green (this repo's check, `.anew-dev/README.md`)
+- [x] Independent review done; real findings fixed, noise rejected with written rationale, deferred ones in `.anew-dev/backlog.md`
+- [x] Docs / ADRs updated (ANEW-0013, ANEW-0008 revised)
+- [x] Spec moved to `.anew-dev/done/` (it becomes immutable there)
 
 ## Scorecard (fill at ship — honest numbers make the process improvable)
 | Metric | Value |
 |---|---|
-| Spec revisions | |
-| Fix rounds | |
-| Review findings: real / noise / deferred | |
-| Regressions introduced | |
-| Bugs escaped to production | |
+| Spec revisions | 1 (A-1: release named v1.25) |
+| Fix rounds | 3 (review round 1, review round 2, VERIFY round 1) |
+| Review findings: real / noise / deferred | 8 / 1 / 0 (B-8 was deferred at BUILD, not by review) |
+| Regressions introduced | 0 |
+| Bugs escaped to production | n/a (not yet released) |
