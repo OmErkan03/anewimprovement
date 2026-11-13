@@ -3,6 +3,7 @@
 - Status: Accepted
 - Date: 2026-10-07
 - Revised: 2026-10-19 — moved to docs/decisions/anew/ as ANEW-0008 (template namespace, ANEW-0010); decision unchanged
+- Revised: 2026-11-12 — v1.25: the revisit trigger "design approval before ANALYZE ends" fired; the design is now drawn at ANALYZE and approved with the spec — see ANEW-0013
 
 ## Context
 ANEW has software design (`docs/architecture.md`, the plan, ADRs) but no place for user experience.

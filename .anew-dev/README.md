@@ -11,6 +11,9 @@ This repo is the company's ANEW fork. Team members create their internal-softwar
   product; bootstrapping would overwrite them. Bootstrap runs in the repos created from this one.
 - Template changes go through `.anew-dev/` specs and plans, as below. Records are written in English.
 - Verify with `./scripts/doctor --strict` and `./scripts/selftest` (the same checks as CI).
+- Known trap (twice: spec 0004, spec 0006): inside awk programs write `[ \t\r]`, never POSIX
+  classes like `[[:space:]]` (old mawk misreads them). On Windows, Git Bash's gawk strips `\r`
+  on input, so a CRLF test can only fail on Linux; CI is its proof.
 
 - `specs/NNNN-<name>.md` — one per piece of work; numbering is shared with `plans/`.
 - `plans/NNNN-plan.md` — the approved plan, `Approved by / on` is the gate record.

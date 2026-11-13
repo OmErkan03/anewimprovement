@@ -8,7 +8,7 @@
 - Self-critique: pending
   <!-- done | pending (<condition>) — as in TEMPLATE.md. -->
 - Source: <!-- MANDATORY — the work item key (ticket / issue / request id). No key, no mini-spec. -->
-- Design: <!-- UI change only — link to the new design (and the states it changes); never a copy in the repo. -->
+- Design: <!-- REQUIRED — "none — no user interface", or "<link> · version <label>": the design of every screen and state this change touches, approved with the spec (ANEW-0013); never a copy in the repo. Trivial changes (docs/git.md) take no mini-spec. -->
 - Supersedes: <!-- optional — <NNNN>/AC-x of the shipped spec whose behavior this replaces. specs/done/ is never edited. -->
 
 ## Intent

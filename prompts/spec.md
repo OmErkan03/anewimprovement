@@ -9,10 +9,16 @@ Requirements must describe BEHAVIOR — no technical solutions (no endpoints, ta
 Acceptance criteria: each line independently testable; cover the happy path, boundaries,
 empty states, invalid inputs, and authorization. Constraints include explicit OUT OF SCOPE
 items, and `Sensitive area: <name>` when the work touches one (docs/domain.md).
-User experience: fill flow, states, design link and accessibility, or "none — no user interface".
-Every listed state gets a criterion. Never invent visuals. Ask for a link to a fixed version of
-the design (or a dated export), so verification compares against what was approved; a design
-that changes later is a spec change (R-08).
+User experience: fill flow, states, design and accessibility, or "none — no user interface".
+Every listed state gets a criterion. DESIGN (UI work, ANEW-0013): draw the design from this spec
+with the project's design tool — every screen an acceptance criterion touches, and every listed
+state that changes how it looks. Draw only what the spec says: no screen, state or behavior the
+spec does not have. Sample data only, never real personal or production data. An existing design
+at a fixed version (e.g. a designer's file) replaces the drawing. Write
+`- Design: <link> · version <label>` (republished at the same address → a new label each time;
+an approved version is never overwritten). Make sure the approver can open it. The spec approval
+is one decision: the spec together with that design version; a design change after approval is
+a spec change (R-08).
 Write in the docs language (AGENTS.md, Language); field labels and Status values stay English.
 
 Then run a SELF-CRITIQUE pass as a hostile reader: which questions would a developer still have?

@@ -7,6 +7,8 @@ one or before it if this one depends on it. R-08 is for changed criteria of THIS
 be proven and I move it out: keep its line, struck through, with `→ moved to B-<n> | spec <NNNN>
 — <name>, <date>, <why>` on that line, and the backlog entry or spec created. Never for a
 sensitive-area criterion; never a silent drop (doctor checks every new ship).
+A changed DESIGN after approval is R-08 too: a new design version (never the approved one
+overwritten), a new `- Design:` line in the spec, and approval of the spec with that version.
 Order is fixed: 1) UPDATE THE SPEC first (specs/active/…) — new/changed acceptance criteria,
 scope notes. 2) Produce a DELTA PLAN: which plan steps survive, which die, what's new; impact on
 already-built work. 3) Wait for my approval, then continue.

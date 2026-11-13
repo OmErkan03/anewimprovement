@@ -15,6 +15,11 @@ What it adds on top of the core:
 - **Change requests**: `/change` — runs the triage rubric of `workflows/change-request.md`
   (bug / trivial / change) with a reasoned verdict, then the lane the behavior demands; in strict
   mode it stops after the mini-spec, in lite it chains with gate approvals.
+- **Design tool**: for UI work, `/analyze` (and so `/new-feature` and `/change`) draws the design
+  as a Claude Design artifact. Each version gets a label `v<n>`, and the spec links it as
+  `- Design: <url> · version v<n>`. Artifacts are hosted on claude.ai and private by default:
+  sample data only, shared with the approvers before the spec gate. The core names no tool
+  (ANEW-0011, ANEW-0013); other adapters link the design tool their team uses.
 - **Other commands**: `/bootstrap`, `/fix-bug`, `/refactor`, `/adr`, `/recover` — each loads the
   matching workflow and honors the operating mode. All commands are thin by design: they point to
   `workflows/` and `prompts/`, they don't restate them.

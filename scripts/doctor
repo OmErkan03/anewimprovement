@@ -331,6 +331,46 @@ for s in "$ROOT/specs/active/"[0-9]*.md; do
     *) warn "self-critique $sc: specs/active/$(basename "$s")" ;;
   esac
 done
+# --- design at a fixed version (ANEW-0013): a UI spec carries `- Design: <link> · version <label>`
+# (`|` or no separator also accepted). Not UI: the User experience section opens with
+# "none — no user interface" (mini-spec: its Design field says so). No User experience heading
+# counts as UI (fail-closed). A full spec whose section holds no other text, and whose
+# `- Design:` field (first such line in the file) is "none — no user interface", is not UI either. Draft → WARN; Approved / In progress →
+# gate. Shape only: the link is never opened, and specs/done/ is not judged.
+# awk uses [ \t\r], never POSIX classes: old mawk (1.3.3) misreads [[:space:]]. ---
+design_none() { grep -qiE '^[[:space:]]*none[[:space:]]*(—|–|-)[[:space:]]*no user interface'; }
+design_ok()   { grep -qE '^https?://[^[:space:]]+[[:space:]]+((·|\|)[[:space:]]+)?version[[:space:]]+[^[:space:]]'; }
+# the User experience section's first line of text, HTML comments (also multi-line) removed
+ux_first() {
+  awk '/^## /{ insec = ($0 ~ /^## User experience[ \t\r]*$/); next }
+       insec { line = $0; out = ""
+               while (line != "") {
+                 if (c) { i = index(line, "-->"); if (!i) { line = "" } else { line = substr(line, i + 3); c = 0 } }
+                 else   { i = index(line, "<!--"); if (!i) { out = out line; line = "" }
+                          else { out = out substr(line, 1, i - 1); line = substr(line, i + 4); c = 1 } }
+               }
+               if (out ~ /^- Design:/) next
+               if (out ~ /[^ \t\r]/) { print out; exit } }' "$1"
+}
+for s in "$ROOT/specs/active/"[0-9]*.md; do
+  [ -f "$s" ] || continue
+  d=$(grep -m1 '^- Design:' "$s" | sed 's/<!--.*-->//g; s/^- Design:[[:space:]]*//; s/[[:space:]]*$//')
+  if grep -q '^## Preserved behavior' "$s"; then
+    printf '%s\n' "$d" | design_none && continue
+  elif grep -q '^## User experience[[:space:]]*$' "$s"; then
+    u=$(ux_first "$s")
+    printf '%s\n' "$u" | design_none && continue
+    # an otherwise empty section with "- Design: none — no user interface" is not UI either
+    [ -z "$u" ] && printf '%s\n' "$d" | design_none && continue
+  fi
+  printf '%s\n' "$d" | design_ok && continue
+  st=$(grep -m1 '^- Status:' "$s" | sed 's/<!--.*-->//g; s/^- Status:[[:space:]]*//; s/[[:space:]]*$//')
+  msg="UI spec without a design at a fixed version: specs/active/$(basename "$s") (status: ${st:-none}; expected '- Design: <link> · version <label>', or 'none — no user interface')"
+  case "$st" in
+    Approved|"In progress") gate "$msg" ;;
+    *) warn "$msg" ;;
+  esac
+done
 dupsrc=$(for s in "$ROOT/specs/active/"[0-9]*.md; do
   [ -f "$s" ] && grep -m1 '^- Source:' "$s" | sed 's/<!--.*-->//g; s/^- Source:[[:space:]]*//; s/[[:space:]]*$//'
 done | grep -v '^$' | sort | uniq -d)

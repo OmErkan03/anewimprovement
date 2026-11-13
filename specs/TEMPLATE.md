@@ -26,10 +26,16 @@ what is deliberately NOT being done. Decisions from clarifying questions are fol
      not visual polish:
      - Flow: the steps a user takes, entry point → outcome.
      - States: every state of each screen — empty, loading, error, success, no permission.
-     - Design reference: a link to the design (file / frame / version), never a copy in the repo
-       (docs/testing.md, Evidence policy). No design → "none — the flow above is the design".
+     - Design: required for UI work (ANEW-0013), on its own line as
+       `- Design: <link> · version <label>`. It covers every screen an acceptance criterion
+       touches, and every listed state that changes how that screen looks. The Analyst draws it
+       from this spec (prompts/spec.md) or links an existing design at a fixed version. It is a
+       link, never a copy in the repo (docs/testing.md, Evidence policy). Approved together with
+       the spec; a change after approval is a spec change (R-08).
      - Accessibility: keyboard path, labels, contrast expectations.
-     Every state listed here gets an acceptance criterion below. -->
+     Every state listed here gets an acceptance criterion below. scripts/doctor checks the Design
+     line's shape on a UI spec. -->
+- Design:
 
 ## Constraints & out of scope
 <!-- Hard limits (performance targets, compliance) and conscious V1 exclusions. -->

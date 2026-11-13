@@ -12,7 +12,9 @@ ASSESS → STABILIZE → [HUMAN: action] → EVIDENCE → ROOT CAUSE → FIX (bu
    explicitly approves the production action. Agents do not touch production unilaterally.
 3. **EVIDENCE.** Before it evaporates: logs, metrics, failing requests, timeline. Store alongside
    the incident spec: `specs/active/NNNN-incident-<date>.md` from `specs/TEMPLATE-mini.md`
-   (Source = incident id; Preserved behavior = what must keep working while you stabilize). It
+   (Source = incident id; Preserved behavior = what must keep working while you stabilize;
+   Design = `none — no user interface`, or the existing approved design version when the fix
+   touches a UI — ANEW-0013). It
    shares the spec numbering and the `scripts/doctor` checks. This lane has no ANALYZE: run the
    SELF-CRITIQUE pass of `prompts/spec.md` on the mini-spec, the human approves its gaps, then
    set `- Self-critique: done` (doctor gates `pending` past approval).

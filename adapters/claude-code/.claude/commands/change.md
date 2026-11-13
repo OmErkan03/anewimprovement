@@ -15,7 +15,8 @@ request: $ARGUMENTS
 4. **CHANGE** → twin check first: if a spec in specs/active/ carries the same "Source:" key,
    show it and ask whether to resume it — never open a second one. Then read the Mode:
    - **strict** → run only the ANALYZE segment with specs/TEMPLATE-mini.md (Source mandatory,
-     changed + preserved criteria, Supersedes if a shipped spec exists), wait for spec approval,
+     changed + preserved criteria, Supersedes if a shipped spec exists, Design: none or the touched
+     screens as a Claude Design artifact at a fixed version — /analyze, "Design"), wait for spec approval,
      set "Status: Approved", write the handoff "Next: PLAN — Developer runs /plan <NNNN>", STOP.
    - **lite** → chain ANALYZE (mini) → /plan → /build → /review (narrow) → /verify (before/after
      screenshots for UI) → ship, asking at every gate. One decision per gate message
